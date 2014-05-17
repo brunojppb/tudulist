@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="app_name">TuDuList</string>
+    <string name="btn_new">Nova Tarefa</string>
+    <string name="btn_save_task">Salvar Tarefa</string>
+	<string name="new_task">Criar uma nova Tarefa</string>
+	<string name="txt_description">Descreva sua tarefa</string>
+	<string name="btn_date">Escolha uma data</string>
+	<string name="rd_not_important">Não tem pressa</string>
+	<string name="rd_important">Importante</string>
+	<string name="rd_very_important">Muito importante!</string>
+	<string name="empty_task">Por favor, não deixe sua tarefa em branco!</string>
+	<string name="empty_list_sorry">Desculpe :(</string>
+	<string name="empty_list_msg">Nem uma tarefa cadastrada</string>
+	
+	
+</resources>

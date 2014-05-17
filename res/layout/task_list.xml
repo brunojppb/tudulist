@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:stretchColumns="1">
+    
+	<TableRow >
+	    <View 
+	        android:id="@+id/color_grade_indicator"
+	        android:layout_width="8sp"
+	        android:layout_height="match_parent"
+	        android:background="#DE0232"/>
+	    
+	    <TextView 
+	    android:id="@+id/description"
+	    android:maxWidth="50sp"
+	    android:layout_marginTop="15sp"
+	    android:layout_marginBottom="15sp"
+	    android:textColor="#1490DE"
+	    android:textSize="20sp"
+	    android:layout_marginLeft="5sp"
+	    />
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+    		android:layout_height="match_parent"
+    		android:orientation="vertical">
+	    	<TextView 
+		    	android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+		        android:id="@+id/date"
+		        android:layout_marginTop="2sp"
+		    	android:textColor="#9C9C9C"
+		    	android:textSize="13sp"
+		    	android:layout_marginRight="10sp"
+		    	/>
+	    	<CheckBox 
+	    	    android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:layout_gravity="right"
+    			android:focusable="false"
+    			android:focusableInTouchMode="false"/>
+	    	    
+	    </LinearLayout>
+	    
+	</TableRow>
+</TableLayout>
