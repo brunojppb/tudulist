@@ -32,6 +32,15 @@ public class TaskProvider extends Db4oHelper {
 		this.db().commit();
 	}
 	
+	public Task find(Task t){
+		Task ta = (Task) this.db().queryByExample(t);
+		if(ta != null){
+			return t;			
+		}else{
+			return null;
+		}
+	}
+	
 	public List<Task> findAll(){
 		return this.db().query(Task.class);
 	}

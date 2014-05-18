@@ -2,22 +2,24 @@ package tudulist.models;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Task implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = -4316980831425911446L;
 	public static final int NOT_IMPORTANT = 0;
 	public static final int IMPORTANT = 1;
 	public static final int VERY_IMPORTANT = 2;
 	
 	private String description;
-	private Calendar date;
+	private GregorianCalendar date;
 	private boolean status;
 	private int grade;
 	
 	public Task(){}
 	
-	public Task(String description, Calendar date, int grade){
+	public Task(String description, GregorianCalendar date, int grade){
 		this.description = description;
 		this.date = date;
 		this.status = false;
@@ -36,7 +38,7 @@ public class Task implements Serializable{
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(GregorianCalendar date) {
 		this.date = date;
 	}
 	

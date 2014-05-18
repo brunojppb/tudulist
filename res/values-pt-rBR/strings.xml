@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">TuDuList</string>
     <string name="btn_new">Nova Tarefa</string>
     <string name="btn_save_task">Salvar Tarefa</string>
@@ -12,6 +11,8 @@
 	<string name="empty_task">Por favor, não deixe sua tarefa em branco!</string>
 	<string name="empty_list_sorry">Desculpe :(</string>
 	<string name="empty_list_msg">Nem uma tarefa cadastrada</string>
-	
-	
+	<string name="delete_msg">Realmente quer deletar?</string>
+	<string name="yes">Sim</string>
+	<string name="no">Não</string>
+	<string name="remember">Lembrar?</string>
 </resources>

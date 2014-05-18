@@ -1,6 +1,7 @@
 package tudulist.activities;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import tudulist.database.TaskProvider;
 import tudulist.models.Task;
@@ -25,7 +26,7 @@ public class NewTaskActivity extends Activity{
 	private int year;
 	private int month;
 	private int day;
-	private Calendar calendar;
+	private GregorianCalendar calendar;
 	private TaskProvider taskManager;
 
 	@Override
@@ -34,7 +35,7 @@ public class NewTaskActivity extends Activity{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.create_task);
 		task = new Task();
-		calendar = Calendar.getInstance();
+		calendar = new GregorianCalendar();
 		year = calendar.get(Calendar.YEAR);
 		month = calendar.get(Calendar.MONTH);
 		day = calendar.get(Calendar.DAY_OF_MONTH);

@@ -10,6 +10,7 @@ import android.util.Log;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.config.TSerializable;
 
 public class Db4oHelper {
 	private static ObjectContainer oc = null;
@@ -49,6 +50,7 @@ public class Db4oHelper {
 		//configuration.common().add(new UniqueFieldValueConstraint(Task.class, "id"));
 		//para utilizar a classe GregorianCalendar
 		configuration.common().objectClass(GregorianCalendar.class).callConstructor(true);
+		configuration.common().objectClass(GregorianCalendar.class).translate(new TSerializable());
 		return configuration;
 	}
 	

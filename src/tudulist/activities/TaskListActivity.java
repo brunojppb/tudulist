@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -22,8 +23,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 import br.tudulist.R;
-
-import com.db4o.ObjectSet;
 
 public class TaskListActivity extends Activity implements OnItemClickListener, OnItemLongClickListener{
 
@@ -61,9 +60,11 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 		tasks = null;
 		tasks = taskManager.findAll();
 		if(tasks != null && tasks.size() > 0){
+			Log.i("tudu", "Tasks encontradas no DB" + tasks.size());
 			taskAdapter = new TaskAdapter(this, tasks);
 		}
 		else{
+			Log.i("tudu", "Sem Tasks cadastradas do DB");
 			tasks = new ArrayList<Task>();
 			taskAdapter = new TaskAdapter(this, tasks);
 		}
@@ -74,18 +75,19 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 		
 	}
 	
-//	public void reloadData(){
-//		tasks = taskManager.findAll();
-//		Log.i("tudu", "reload tasks DB: " + tasks.size());
-//		if(tasks != null){
-//			taskAdapter.setTasks(tasks);
-//		}
-//		else{
-//			tasks = new ArrayList<Task>();
-//			taskAdapter.setTasks(tasks);
-//		}
-//		//taskAdapter.notifyDataSetChanged();
-//	}
+	public void reloadData(){
+		tasks = taskManager.findAll();
+		Log.i("tudu", "reload tasks DB: " + tasks.size());
+		if(tasks != null){
+			taskAdapter.setTasks(tasks);
+		}
+		else{
+			tasks = new ArrayList<Task>();
+			taskAdapter.setTasks(null);
+			taskAdapter.setTasks(tasks);
+		}
+		taskAdapter.notifyDataSetChanged();
+	}
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -99,9 +101,9 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 		
 		//builder.setCancelable(true);
-		builder.setTitle("Delete a task");
+		builder.setTitle(getResources().getString(R.string.delete_msg));
 		final int pos = position;
-		builder.setNegativeButton("No", new OnClickListener() {
+		builder.setNegativeButton(getResources().getString(R.string.no), new OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
@@ -109,23 +111,21 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 			}
 		});
 		
-		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				Log.i("tudu", "Clicou YES");
 				Task t = (Task) taskAdapter.getItem(pos);
+				long taskId = taskManager.db().ext().getID(t);
 				Log.i("tudu", "Task: " + t.getDescription());
-				ObjectSet<Task> result = taskManager.db().queryByExample(t);
+				Task result = taskManager.db().ext().getByID(taskId);
 				if(result != null){
-					Log.i("task", "encontrou a task");
-					if(result.size() != 0){
-						t = result.get(0);
-						Log.i("task", "desc: " + t.getDescription());
+					Log.i("tudu", "encontrou a task");
+						Log.i("tudu", "desc: " + t.getDescription());
 						taskManager.delete(t);
-						populateListView();
-					}
 				}
+				reloadData();
 			}
 		}).show();
 		
@@ -136,6 +136,7 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 	protected void onDestroy() {
 		super.onDestroy();
 		this.taskManager.close();
+		Log.i("tudu", "App destruido!");
 	}
 
 	@Override
@@ -148,10 +149,14 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		this.populateListView();
+		reloadData();
 		Log.i("tudu", "Count: " + taskAdapter.getCount());
 	}
-	
-	
-	
+
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		return super.onCreateOptionsMenu(menu);
+	}
 }

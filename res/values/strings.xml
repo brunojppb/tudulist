@@ -12,6 +12,9 @@
 	<string name="empty_task">Plese, describe your task</string>
 	<string name="empty_list_sorry">Sorry :(</string>
 	<string name="empty_list_msg">There is no tasks</string>
-	
+	<string name="delete_msg">Do you want to delete?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="remember">Remember?</string>
 	
 </resources>

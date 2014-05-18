@@ -40,14 +40,18 @@ public final class R {
         public static final int btn_date=0x7f040005;
         public static final int btn_new=0x7f040001;
         public static final int btn_save_task=0x7f040002;
+        public static final int delete_msg=0x7f04000c;
         public static final int empty_list_msg=0x7f04000b;
         public static final int empty_list_sorry=0x7f04000a;
         public static final int empty_task=0x7f040009;
         public static final int new_task=0x7f040003;
+        public static final int no=0x7f04000e;
         public static final int rd_important=0x7f040007;
         public static final int rd_not_important=0x7f040006;
         public static final int rd_very_important=0x7f040008;
+        public static final int remember=0x7f04000f;
         public static final int txt_description=0x7f040004;
+        public static final int yes=0x7f04000d;
     }
     public static final class style {
         /** 
