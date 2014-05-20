@@ -16,5 +16,7 @@
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="remember">Remember?</string>
+	<string name="lorem">Lorem Ipsum</string>
+	<string name="date_demo">10/10/2014</string>
 	
 </resources>

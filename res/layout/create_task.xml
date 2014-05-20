@@ -42,45 +42,55 @@
         <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
         android:orientation="vertical">
         
         <View
             android:layout_marginTop="10sp"
             android:layout_marginLeft="10sp" 
-            android:layout_width="30sp"
-        	android:layout_height="30sp"
+            android:layout_width="70sp"
+        	android:layout_height="70sp"
         	android:background="@drawable/not_important_circle"/>
         
         <View
             android:layout_marginTop="10sp"
             android:layout_marginLeft="10sp" 
-            android:layout_width="30sp"
-        	android:layout_height="30sp"
+            android:layout_width="70sp"
+        	android:layout_height="70sp"
         	android:background="@drawable/important_circle"/>
         
         <View
             android:layout_marginTop="10sp"
             android:layout_marginLeft="10sp" 
-            android:layout_width="30sp"
-        	android:layout_height="30sp"
+            android:layout_width="70sp"
+        	android:layout_height="70sp"
         	android:background="@drawable/very_important_circle"/>
         
     </LinearLayout>               
     <RadioGroup
         android:id="@+id/rd_grade"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:layout_marginLeft="10sp">
        
         <RadioButton 
             android:layout_marginTop="8sp"
             android:id="@+id/rd_not_important"
-            android:text="@string/rd_not_important"/>
+            android:textSize="25sp"
+            android:textColor="#0C7CC7"
+            android:text="@string/rd_not_important"
+            />
         <RadioButton
-            android:layout_marginTop="8sp" 
+            android:layout_marginTop="50sp"
+            android:textSize="25sp" 
             android:id="@+id/rd_important"
+            android:textColor="#0C7CC7"
             android:text="@string/rd_important"/>
         <RadioButton 
-            android:layout_marginTop="8sp"
+            android:layout_marginTop="50sp"
+            android:textSize="25sp"
+            android:textColor="#0C7CC7"
             android:id="@+id/rd_very_important"
             android:text="@string/rd_very_important"/>
        
