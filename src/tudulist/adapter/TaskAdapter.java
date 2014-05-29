@@ -1,7 +1,8 @@
 package tudulist.adapter;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import tudulist.models.Task;
 import android.annotation.SuppressLint;
@@ -49,43 +50,39 @@ public class TaskAdapter extends BaseAdapter{
 	@SuppressLint("SimpleDateFormat")
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
-		if(this.tasks != null){
-			if(this.tasks.size() != 0){
-				//get a task from position
-				Task t = this.tasks.get(position);
-				//inflate the layout to put the date on the screen
-				view = myInflater.inflate(R.layout.task_list, null);
-				//we can put the date on the screen using a view
-				TextView desc = (TextView) view.findViewById(R.id.description);
-				TextView date = (TextView) view.findViewById(R.id.date);
-				View color = (View) view.findViewById(R.id.color_grade_indicator);
-				if(t != null){
-					switch (t.getGrade()) {
-					case Task.NOT_IMPORTANT:
-						color.setBackgroundColor(Color.rgb(46, 204, 113));
-						break;
-					
-					case Task.IMPORTANT:
-						color.setBackgroundColor(Color.rgb(245, 171, 53));
-						break;
-					
-					case Task.VERY_IMPORTANT:
-						color.setBackgroundColor(Color.rgb(242, 38, 19));
-						break;
+			//get a task from position
+			Task t = this.tasks.get(position);
+			//inflate the layout to put the date on the screen
+			view = myInflater.inflate(R.layout.task_list, null);
+			//we can put the date on the screen using a view
+			TextView desc = (TextView) view.findViewById(R.id.description);
+			TextView date = (TextView) view.findViewById(R.id.date);
+			View color = (View) view.findViewById(R.id.color_grade_indicator);
+			if(t != null){
+				switch (t.getGrade()) {
+				case Task.NOT_IMPORTANT:
+					color.setBackgroundColor(Color.rgb(46, 204, 113));
+					break;
+				
+				case Task.IMPORTANT:
+					color.setBackgroundColor(Color.rgb(245, 171, 53));
+					break;
+				
+				case Task.VERY_IMPORTANT:
+					color.setBackgroundColor(Color.rgb(242, 38, 19));
+					break;
 
-					default:
-						break;
-				}
-				
-					//formatting a task date to string
-				
-					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-					
-					date.setText(formatter.format(t.getDate().getTime()));
-					desc.setText(t.getDescription());
-				} 	
+				default:
+					break;
 			}
-		}
+			
+				//formatting a task date to string
+			
+				DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+				
+				date.setText(formatter.format(t.getDate().getTime()));
+				desc.setText(t.getDescription());
+			} 	
 		return view;
 	}
 	public List<Task> getTasks() {

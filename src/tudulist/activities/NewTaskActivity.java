@@ -1,7 +1,10 @@
 package tudulist.activities;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import tudulist.database.TaskProvider;
 import tudulist.models.Task;
@@ -13,9 +16,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioGroup;
+import android.widget.RadioButton;
 import android.widget.Toast;
 import br.tudulist.R;
 
@@ -28,6 +33,7 @@ public class NewTaskActivity extends Activity{
 	private int day;
 	private GregorianCalendar calendar;
 	private TaskProvider taskManager;
+	private ArrayList<RadioButton> rdButtons;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +46,43 @@ public class NewTaskActivity extends Activity{
 		month = calendar.get(Calendar.MONTH);
 		day = calendar.get(Calendar.DAY_OF_MONTH);
 		taskManager = new TaskProvider(this);
-		//setting the dialog button action
+		
+		rdButtons = new ArrayList<RadioButton>();
+		rdButtons.add((RadioButton)findViewById(R.id.rd_not_important));
+		rdButtons.add((RadioButton)findViewById(R.id.rd_important));
+		rdButtons.add((RadioButton)findViewById(R.id.rd_very_important));
+		
+		for(RadioButton rd : rdButtons){
+			rd.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					if(isChecked) processRadioButtonClick(buttonView);
+					
+				}
+			});
+		}
+	}
+	
+	private void processRadioButtonClick(View btnView){
+		for (RadioButton button : rdButtons){
+
+	        if (button != btnView ) button.setChecked(false);
+	    }
 	}
 	
 	public void saveTask(View v){
 		EditText description = (EditText) findViewById(R.id.description);
-		RadioGroup gradeRadio = (RadioGroup) findViewById(R.id.rd_grade);
+		int rdIdButton = 0;
+		for(RadioButton rdButton : rdButtons){
+			if(rdButton.isChecked())
+				rdIdButton = rdButton.getId();
+		}
+		
+		//RadioGroup gradeRadio = (RadioGroup) findViewById(R.id.rd_grade);
 		
 		if(description.getText().length() > 0){
-			switch (gradeRadio.getCheckedRadioButtonId()) {
+			switch (rdIdButton) {
 			case R.id.rd_not_important:
 				task.setGrade(Task.NOT_IMPORTANT);
 				break;
@@ -96,23 +130,24 @@ public class NewTaskActivity extends Activity{
 	
 	//when the dialog dismiss the callback bellow will be trigger
 	private DatePickerDialog.OnDateSetListener datePickerListener = 
-			new DatePickerDialog.OnDateSetListener() {
+		new DatePickerDialog.OnDateSetListener() {
+			
+			@Override
+			public void onDateSet(DatePicker view, int yearOf, int monthOfYear,
+					int dayOfMonth) {
+				year = yearOf;
+				month = monthOfYear;
+				day = dayOfMonth;
 				
-				@Override
-				public void onDateSet(DatePicker view, int yearOf, int monthOfYear,
-						int dayOfMonth) {
-					year = yearOf;
-					month = monthOfYear;
-					day = dayOfMonth;
-					
-					//set selected date in to the button
-					Button button = (Button) findViewById(R.id.btn_date);
-					button.setText(day + "/" + (month+1) + "/" + year);
-					//setting the date on the task
-					calendar.set(yearOf, monthOfYear, dayOfMonth);
-				}
-			};
-	
-	
-	
+				Calendar c = new GregorianCalendar(yearOf, monthOfYear, dayOfMonth);
+				
+				//set selected date in to the button
+				Button button = (Button) findViewById(R.id.btn_date);
+				DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+				button.setText(formatter.format(c.getTime()));
+				
+				//setting the date on the task
+				calendar.set(yearOf, monthOfYear, dayOfMonth);
+			}
+		};
 }

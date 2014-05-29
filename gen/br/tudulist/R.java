@@ -47,6 +47,7 @@ public final class R {
         public static final int empty_list_msg=0x7f04000b;
         public static final int empty_list_sorry=0x7f04000a;
         public static final int empty_task=0x7f040009;
+        public static final int listview_click_text=0x7f040012;
         public static final int lorem=0x7f040010;
         public static final int new_task=0x7f040003;
         public static final int no=0x7f04000e;

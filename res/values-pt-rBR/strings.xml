@@ -11,10 +11,11 @@
 	<string name="empty_task">Por favor, não deixe sua tarefa em branco!</string>
 	<string name="empty_list_sorry">Desculpe :(</string>
 	<string name="empty_list_msg">Nem uma tarefa cadastrada</string>
-	<string name="delete_msg">Realmente quer deletar?</string>
+	<string name="delete_msg">Realmente quer deletar</string>
 	<string name="yes">Sim</string>
 	<string name="no">Não</string>
 	<string name="remember">Lembrar?</string>
 	<string name="lorem">Lorem Ipsum</string>
 	<string name="date_demo">10/10/2014</string>
+	<string name="listview_click_text">Agendado para</string>
 </resources>

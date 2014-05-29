@@ -1,11 +1,14 @@
 package tudulist.activities;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import tudulist.adapter.TaskAdapter;
 import tudulist.database.TaskProvider;
 import tudulist.models.Task;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
@@ -90,19 +93,25 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 	}
 	
 	@Override
+	@SuppressLint("SimpleDateFormat")
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Log.i("tudu", "clicada");
 		Task t = (Task) taskAdapter.getItem(position);
-		Toast.makeText(this, "Task: " + t.getDescription(), Toast.LENGTH_SHORT).show();
+		DateFormat formatter;
+		Log.i("tudu", Locale.getDefault().getDisplayName());
+		Log.i("tudu", Locale.US.getDisplayName());
+		formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+		String text = getResources().getString(R.string.listview_click_text) + " " + formatter.format(t.getDate().getTime());
+		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 		
 	}
 	
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 		
-		//builder.setCancelable(true);
-		builder.setTitle(getResources().getString(R.string.delete_msg));
 		final int pos = position;
+		Task task = (Task) taskAdapter.getItem(pos);
+		builder.setTitle(getResources().getString(R.string.delete_msg) + " " + task.getDescription() + "?");
 		builder.setNegativeButton(getResources().getString(R.string.no), new OnClickListener() {
 			
 			@Override
