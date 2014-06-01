@@ -81,7 +81,11 @@ public class TaskAdapter extends BaseAdapter{
 				DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
 				
 				date.setText(formatter.format(t.getDate().getTime()));
-				desc.setText(t.getDescription());
+				if(t.getDescription().length() > 26){
+					String split = t.getDescription().substring(0, 26);
+					desc.setText(split + "...");
+				}else
+					desc.setText(t.getDescription());
 			} 	
 		return view;
 	}

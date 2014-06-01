@@ -22,6 +22,7 @@
             android:name="tudulist.activities.NewTaskActivity">
             
         </activity>
+        <activity android:name="tudulist.activities.TaskDetailActivity"></activity>
     </application>
 
 </manifest>

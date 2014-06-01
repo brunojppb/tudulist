@@ -18,13 +18,17 @@ public final class R {
         public static final int ic_launcher=0x7f020004;
         public static final int important_circle=0x7f020005;
         public static final int not_important_circle=0x7f020006;
-        public static final int very_important_circle=0x7f020007;
+        public static final int squared_metal=0x7f020007;
+        public static final int very_important_circle=0x7f020008;
     }
     public static final class id {
+        public static final int background_view_detail=0x7f060008;
         public static final int btn_date=0x7f060001;
-        public static final int color_grade_indicator=0x7f060007;
-        public static final int date=0x7f060008;
+        public static final int color_grade_indicator=0x7f06000a;
+        public static final int date=0x7f06000b;
+        public static final int date_detail=0x7f060007;
         public static final int description=0x7f060000;
+        public static final int description_detail=0x7f060009;
         public static final int list=0x7f060006;
         public static final int rd_grade=0x7f060002;
         public static final int rd_important=0x7f060004;
@@ -35,7 +39,8 @@ public final class R {
         public static final int create_task=0x7f030000;
         public static final int empty=0x7f030001;
         public static final int main=0x7f030002;
-        public static final int task_list=0x7f030003;
+        public static final int task_detail=0x7f030003;
+        public static final int task_list=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f040000;

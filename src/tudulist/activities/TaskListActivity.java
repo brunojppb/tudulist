@@ -1,13 +1,12 @@
 package tudulist.activities;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import tudulist.adapter.TaskAdapter;
 import tudulist.database.TaskProvider;
 import tudulist.models.Task;
+import tudulist.util.TaskSingleton;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
@@ -24,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 import br.tudulist.R;
 
 public class TaskListActivity extends Activity implements OnItemClickListener, OnItemLongClickListener{
@@ -97,12 +95,16 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Log.i("tudu", "clicada");
 		Task t = (Task) taskAdapter.getItem(position);
-		DateFormat formatter;
-		Log.i("tudu", Locale.getDefault().getDisplayName());
-		Log.i("tudu", Locale.US.getDisplayName());
-		formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-		String text = getResources().getString(R.string.listview_click_text) + " " + formatter.format(t.getDate().getTime());
-		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+		TaskSingleton taskSingleton = TaskSingleton.getInstance();
+		taskSingleton.setTask(t);
+		Intent i = new Intent(this, TaskDetailActivity.class);
+		startActivity(i);
+//		DateFormat formatter;
+//		Log.i("tudu", Locale.getDefault().getDisplayName());
+//		Log.i("tudu", Locale.US.getDisplayName());
+//		formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+//		String text = getResources().getString(R.string.listview_click_text) + " " + formatter.format(t.getDate().getTime());
+//		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 		
 	}
 	
