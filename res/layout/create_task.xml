@@ -22,17 +22,37 @@
         android:layout_height="wrap_content"
         android:hint="@string/txt_description"/>
     
-    <Button 
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <Button 
         android:id="@+id/btn_date"
         android:onClick="showDateDialog"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5sp"
-        android:layout_marginLeft="5sp"
-        android:layout_marginRight="5sp"
+        android:layout_marginLeft="3sp"
+        android:layout_marginRight="2sp"
         android:text="@string/btn_date"
         android:textColor="#FFFFFF"
         android:background="#0C7CC7"/>
+        <Button 
+        android:id="@+id/btn_time"
+        android:onClick="showTimeDialog"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginLeft="2sp"
+        android:layout_marginRight="3sp"
+        android:text="@string/btn_time"
+        android:textColor="#FFFFFF"
+        android:background="#0C7CC7"/>
+        
+    </LinearLayout>
         
     <LinearLayout
         android:id="@+id/rd_grade"

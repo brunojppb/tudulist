@@ -22,18 +22,20 @@ public final class R {
         public static final int very_important_circle=0x7f020008;
     }
     public static final class id {
-        public static final int background_view_detail=0x7f060008;
+        public static final int background_view_detail=0x7f06000a;
         public static final int btn_date=0x7f060001;
-        public static final int color_grade_indicator=0x7f06000a;
-        public static final int date=0x7f06000b;
-        public static final int date_detail=0x7f060007;
+        public static final int btn_time=0x7f060002;
+        public static final int color_grade_indicator=0x7f06000c;
+        public static final int date=0x7f06000d;
+        public static final int date_detail=0x7f060008;
         public static final int description=0x7f060000;
-        public static final int description_detail=0x7f060009;
-        public static final int list=0x7f060006;
-        public static final int rd_grade=0x7f060002;
-        public static final int rd_important=0x7f060004;
-        public static final int rd_not_important=0x7f060003;
-        public static final int rd_very_important=0x7f060005;
+        public static final int description_detail=0x7f06000b;
+        public static final int list=0x7f060007;
+        public static final int rd_grade=0x7f060003;
+        public static final int rd_important=0x7f060005;
+        public static final int rd_not_important=0x7f060004;
+        public static final int rd_very_important=0x7f060006;
+        public static final int time_detail=0x7f060009;
     }
     public static final class layout {
         public static final int create_task=0x7f030000;
@@ -47,21 +49,22 @@ public final class R {
         public static final int btn_date=0x7f040005;
         public static final int btn_new=0x7f040001;
         public static final int btn_save_task=0x7f040002;
-        public static final int date_demo=0x7f040011;
-        public static final int delete_msg=0x7f04000c;
-        public static final int empty_list_msg=0x7f04000b;
-        public static final int empty_list_sorry=0x7f04000a;
-        public static final int empty_task=0x7f040009;
-        public static final int listview_click_text=0x7f040012;
-        public static final int lorem=0x7f040010;
+        public static final int btn_time=0x7f040006;
+        public static final int date_demo=0x7f040012;
+        public static final int delete_msg=0x7f04000d;
+        public static final int empty_list_msg=0x7f04000c;
+        public static final int empty_list_sorry=0x7f04000b;
+        public static final int empty_task=0x7f04000a;
+        public static final int listview_click_text=0x7f040013;
+        public static final int lorem=0x7f040011;
         public static final int new_task=0x7f040003;
-        public static final int no=0x7f04000e;
-        public static final int rd_important=0x7f040007;
-        public static final int rd_not_important=0x7f040006;
-        public static final int rd_very_important=0x7f040008;
-        public static final int remember=0x7f04000f;
+        public static final int no=0x7f04000f;
+        public static final int rd_important=0x7f040008;
+        public static final int rd_not_important=0x7f040007;
+        public static final int rd_very_important=0x7f040009;
+        public static final int remember=0x7f040010;
         public static final int txt_description=0x7f040004;
-        public static final int yes=0x7f04000d;
+        public static final int yes=0x7f04000e;
     }
     public static final class style {
         /** 

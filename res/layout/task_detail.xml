@@ -19,27 +19,33 @@
         android:textSize="30sp"
         android:text="@string/date_demo"/>
     
-    <LinearLayout
-        android:id="@+id/background_view_detail" 
-        android:layout_width="match_parent"
-    	android:layout_height="match_parent"
-    	android:orientation="vertical"
-    	android:background="#65C6BB" >
-    	
-        <TextView
-        android:id="@+id/description_detail" 
-        android:layout_width="match_parent"
+    <TextView 
+        android:id="@+id/time_detail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:maxWidth="50sp"
-        android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:text="@string/lorem"/>
-        
-    </LinearLayout>
+        android:textSize="20sp"
+        android:text="@string/date_demo"/>
+    	
+     <ScrollView 
+        android:id="@+id/background_view_detail" 
+    	android:layout_width="match_parent"
+ 		android:layout_height="match_parent"
+ 		android:background="#65C6BB">
+           <TextView
+	        android:id="@+id/description_detail" 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5sp"
+	        android:layout_marginLeft="10sp"
+	        android:layout_marginRight="10sp"
+	        android:layout_marginBottom="15sp"
+	        android:maxWidth="50sp"
+	        android:gravity="center_horizontal"
+	        android:layout_gravity="center_horizontal"
+	        android:textColor="#FFFFFF"
+	        android:textSize="30sp"
+	        android:text="@string/lorem"/>
+       </ScrollView>
 
 </LinearLayout>

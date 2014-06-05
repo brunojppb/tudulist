@@ -5,7 +5,8 @@
     <string name="btn_save_task">Save task</string>
 	<string name="new_task">Create a new Task</string>
 	<string name="txt_description">Describe your task</string>
-	<string name="btn_date">Set the date</string>
+	<string name="btn_date">Set Date</string>
+	<string name="btn_time">Set Time</string>
 	<string name="rd_not_important">Not Important</string>
 	<string name="rd_important">Important</string>
 	<string name="rd_very_important">Very Important</string>

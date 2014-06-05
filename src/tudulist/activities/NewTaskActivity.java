@@ -1,6 +1,7 @@
 package tudulist.activities;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,6 +12,7 @@ import tudulist.models.Task;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import br.tudulist.R;
 
@@ -28,9 +31,8 @@ public class NewTaskActivity extends Activity{
 	
 	
 	private Task task;
-	private int year;
-	private int month;
-	private int day;
+	private int year, month, day;
+	private int myHour, myMinute;
 	private GregorianCalendar calendar;
 	private TaskProvider taskManager;
 	private ArrayList<RadioButton> rdButtons;
@@ -46,6 +48,9 @@ public class NewTaskActivity extends Activity{
 		month = calendar.get(Calendar.MONTH);
 		day = calendar.get(Calendar.DAY_OF_MONTH);
 		taskManager = new TaskProvider(this);
+		
+		myHour = 10;
+		myMinute = 0;
 		
 		rdButtons = new ArrayList<RadioButton>();
 		rdButtons.add((RadioButton)findViewById(R.id.rd_not_important));
@@ -99,6 +104,11 @@ public class NewTaskActivity extends Activity{
 				break;
 			}
 			task.setDescription(description.getText().toString());
+			
+			//now we need to set the user date and time
+			calendar.set(Calendar.HOUR, myHour);
+			calendar.set(Calendar.MINUTE, myMinute);
+			
 			task.setDate(calendar);
 			Log.i("task", "Salvando no banco...");
 			taskManager.save(task);
@@ -127,6 +137,25 @@ public class NewTaskActivity extends Activity{
 			return null;
 		}
 	}
+	
+	public void showTimeDialog(View v){
+		TimePickerDialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+			
+			@Override
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				myHour = hourOfDay;
+				myMinute = minute;
+				Button btn = (Button)findViewById(R.id.btn_time);
+				calendar.set(Calendar.HOUR, myHour);
+				calendar.set(Calendar.MINUTE, myMinute);
+				DateFormat format = new SimpleDateFormat("hh:mm a");
+				btn.setText(format.format(calendar.getTime()));
+			}
+		}, myHour, myMinute, false);
+		
+		dialog.show();
+	}
+	
 	
 	//when the dialog dismiss the callback bellow will be trigger
 	private DatePickerDialog.OnDateSetListener datePickerListener = 

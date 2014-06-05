@@ -1,6 +1,7 @@
 package tudulist.activities;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import tudulist.models.Task;
@@ -28,6 +29,10 @@ public class TaskDetailActivity extends Activity{
 			DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
 			date.setText(formatter.format(t.getDate().getTime()));
 			description.setText(t.getDescription());
+			
+			formatter = new SimpleDateFormat("hh:mm a");
+			TextView timeDetail = (TextView) findViewById(R.id.time_detail);
+			timeDetail.setText(formatter.format(t.getDate().getTime()));
 			
 			switch (t.getGrade()) {
 			case Task.NOT_IMPORTANT:
