@@ -99,13 +99,6 @@ public class TaskListActivity extends Activity implements OnItemClickListener, O
 		taskSingleton.setTask(t);
 		Intent i = new Intent(this, TaskDetailActivity.class);
 		startActivity(i);
-//		DateFormat formatter;
-//		Log.i("tudu", Locale.getDefault().getDisplayName());
-//		Log.i("tudu", Locale.US.getDisplayName());
-//		formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-//		String text = getResources().getString(R.string.listview_click_text) + " " + formatter.format(t.getDate().getTime());
-//		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-		
 	}
 	
 	@Override

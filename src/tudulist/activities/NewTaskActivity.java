@@ -9,10 +9,14 @@ import java.util.Locale;
 
 import tudulist.database.TaskProvider;
 import tudulist.models.Task;
+import tudulist.receivers.NotificationReceiver;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +35,7 @@ public class NewTaskActivity extends Activity{
 	
 	
 	private Task task;
-	private int year, month, day;
+	private int myYear, myMonth, myDay;
 	private int myHour, myMinute;
 	private GregorianCalendar calendar;
 	private TaskProvider taskManager;
@@ -44,13 +48,14 @@ public class NewTaskActivity extends Activity{
 		setContentView(R.layout.create_task);
 		task = new Task();
 		calendar = new GregorianCalendar();
-		year = calendar.get(Calendar.YEAR);
-		month = calendar.get(Calendar.MONTH);
-		day = calendar.get(Calendar.DAY_OF_MONTH);
+		myYear = calendar.get(Calendar.YEAR);
+		myMonth = calendar.get(Calendar.MONTH);
+		myDay = calendar.get(Calendar.DAY_OF_MONTH);
+		myHour = calendar.get(Calendar.HOUR_OF_DAY);
+		myMinute = calendar.get(Calendar.MINUTE);
+		calendar.set(Calendar.SECOND, 0);
+
 		taskManager = new TaskProvider(this);
-		
-		myHour = 10;
-		myMinute = 0;
 		
 		rdButtons = new ArrayList<RadioButton>();
 		rdButtons.add((RadioButton)findViewById(R.id.rd_not_important));
@@ -84,8 +89,6 @@ public class NewTaskActivity extends Activity{
 				rdIdButton = rdButton.getId();
 		}
 		
-		//RadioGroup gradeRadio = (RadioGroup) findViewById(R.id.rd_grade);
-		
 		if(description.getText().length() > 0){
 			switch (rdIdButton) {
 			case R.id.rd_not_important:
@@ -104,14 +107,27 @@ public class NewTaskActivity extends Activity{
 				break;
 			}
 			task.setDescription(description.getText().toString());
-			
-			//now we need to set the user date and time
-			calendar.set(Calendar.HOUR, myHour);
-			calendar.set(Calendar.MINUTE, myMinute);
-			
 			task.setDate(calendar);
-			Log.i("task", "Salvando no banco...");
 			taskManager.save(task);
+			
+			//schedule a new notification to trigger
+			long timeIsUp = task.getDate().getTimeInMillis();
+			long taskId = taskManager.db().ext().getID(task);
+		
+			//retrieve a alarmManager from the system
+			AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+			//create a intent that we need to use to trigger our notification
+			Intent it = new Intent(this, NotificationReceiver.class);
+			//new we need to put the TaskId into the intent
+			Log.i("tudu", "ID passado: " + taskId);
+			it.putExtra("taskId", taskId);
+			
+			//new we need to prepare a PendingIntent to execute after
+			PendingIntent pendent = PendingIntent.getBroadcast(getApplicationContext(), 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
+			
+			//Register the alert in the system
+			alarmManager.set(AlarmManager.RTC_WAKEUP, timeIsUp, pendent);
+			
 			taskManager.close();
 			finish();
 		}
@@ -122,32 +138,18 @@ public class NewTaskActivity extends Activity{
 		
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void showDateDialog(View v){
-		showDialog(v.getId());
-	}
-
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		switch (id) {
-		case R.id.btn_date:
-			return new DatePickerDialog(this, datePickerListener, year, month, day);
-
-		default:
-			return null;
-		}
-	}
-	
 	public void showTimeDialog(View v){
 		TimePickerDialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
 			
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				Button btn = (Button)findViewById(R.id.btn_time);
 				myHour = hourOfDay;
 				myMinute = minute;
-				Button btn = (Button)findViewById(R.id.btn_time);
-				calendar.set(Calendar.HOUR, myHour);
+				
+				calendar.set(Calendar.HOUR_OF_DAY,myHour);
 				calendar.set(Calendar.MINUTE, myMinute);
+				
 				DateFormat format = new SimpleDateFormat("hh:mm a");
 				btn.setText(format.format(calendar.getTime()));
 			}
@@ -156,27 +158,29 @@ public class NewTaskActivity extends Activity{
 		dialog.show();
 	}
 	
-	
-	//when the dialog dismiss the callback bellow will be trigger
-	private DatePickerDialog.OnDateSetListener datePickerListener = 
-		new DatePickerDialog.OnDateSetListener() {
+	public void showDateDialog(View v){
+		DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 			
 			@Override
-			public void onDateSet(DatePicker view, int yearOf, int monthOfYear,
+			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
-				year = yearOf;
-				month = monthOfYear;
-				day = dayOfMonth;
 				
-				Calendar c = new GregorianCalendar(yearOf, monthOfYear, dayOfMonth);
+				myYear = year;
+				myMonth = monthOfYear;
+				myDay = dayOfMonth;
+				//setting the date
+				calendar.set(Calendar.YEAR, myYear);
+				calendar.set(Calendar.MONTH, myMonth);
+				calendar.set(Calendar.DAY_OF_MONTH, myDay);
 				
 				//set selected date in to the button
 				Button button = (Button) findViewById(R.id.btn_date);
 				DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-				button.setText(formatter.format(c.getTime()));
+				button.setText(formatter.format(calendar.getTime()));
 				
-				//setting the date on the task
-				calendar.set(yearOf, monthOfYear, dayOfMonth);
 			}
-		};
+		}, myYear, myMonth, myDay);
+		
+		dialog.show();
+	}
 }

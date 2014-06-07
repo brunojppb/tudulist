@@ -20,9 +20,13 @@
         </activity>
         <activity 
             android:name="tudulist.activities.NewTaskActivity">
-            
         </activity>
-        <activity android:name="tudulist.activities.TaskDetailActivity"></activity>
+        <activity 
+            android:name="tudulist.activities.TaskDetailActivity">
+        </activity>
+        
+ 		<receiver android:name="tudulist.receivers.NotificationReceiver" />
+        
     </application>
 
 </manifest>
